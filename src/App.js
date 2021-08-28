@@ -7,6 +7,7 @@ import FullOrderList from "./components/Admin/FullOrderList/FullOrderList";
 import CustomerFeedback from "./components/Customer/CustomerFeedback/CustomerFeedback";
 import Order from "./components/Customer/Order/Order";
 import ServiceList from "./components/Customer/ServiceList/ServiceList";
+import UpdateOrder from "./components/Customer/ServiceList/UpdateOrder";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import PrivateRoute from "./components/Login/PrivateRoute";
@@ -14,11 +15,15 @@ import PrivateRoute from "./components/Login/PrivateRoute";
 export const UserContext = createContext();
 export const ServiceContext = createContext();
 export const AdminContext = createContext();
+export const AllServiceContext = createContext();
+export const UpdatedContext = createContext();
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState({});
   const [service, setService] = useState({});
   const [loggedInAdmin, setLoggedInAdmin] = useState([]);
+  const [allService, setAllService] = useState([]);
+  const [updated, setUpdated] = useState(1);
 
   useEffect(() => {
     fetch("http://localhost:5000/admins")
@@ -33,34 +38,41 @@ function App() {
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
       <AdminContext.Provider value={[loggedInAdmin, setLoggedInAdmin]}>
         <ServiceContext.Provider value={[service, setService]}>
-          <Router>
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <PrivateRoute path="/feedback">
-                <CustomerFeedback />
-              </PrivateRoute>
-              <PrivateRoute path="/order">
-                <Order />
-              </PrivateRoute>
-              <PrivateRoute path="/servicelist">
-                <ServiceList />
-              </PrivateRoute>
-              <PrivateRoute path="/add-admin">
-                <AddAdmin />
-              </PrivateRoute>
-              <PrivateRoute path="/add-service">
-                <AddService />
-              </PrivateRoute>
-              <PrivateRoute path="/full-order-list">
-                <FullOrderList />
-              </PrivateRoute>
-              <Route path="/login">
-                <Login />
-              </Route>
-            </Switch>
-          </Router>
+          <AllServiceContext.Provider value={[allService, setAllService]}>
+            <UpdatedContext.Provider value={[updated, setUpdated]}>
+              <Router>
+                <Switch>
+                  <Route exact path="/">
+                    <Home />
+                  </Route>
+                  <PrivateRoute path="/feedback">
+                    <CustomerFeedback />
+                  </PrivateRoute>
+                  <PrivateRoute path="/order">
+                    <Order />
+                  </PrivateRoute>
+                  <PrivateRoute path="/servicelist">
+                    <ServiceList />
+                  </PrivateRoute>
+                  <PrivateRoute path="/add-admin">
+                    <AddAdmin />
+                  </PrivateRoute>
+                  <PrivateRoute path="/add-service">
+                    <AddService />
+                  </PrivateRoute>
+                  <PrivateRoute path="/full-order-list">
+                    <FullOrderList />
+                  </PrivateRoute>
+                  <Route path="/login">
+                    <Login />
+                  </Route>
+                  <Route path="/updateOrder/:id">
+                    <UpdateOrder />
+                  </Route>
+                </Switch>
+              </Router>
+            </UpdatedContext.Provider>
+          </AllServiceContext.Provider>
         </ServiceContext.Provider>
       </AdminContext.Provider>
     </UserContext.Provider>

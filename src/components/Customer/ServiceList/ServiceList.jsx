@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { UserContext } from "../../../App";
+import { AllServiceContext, UpdatedContext } from "../../../App";
 import RegService from "../RegService/RegService";
 import Sidebar from "../Sidebar/Sidebar";
 
 function ServiceList() {
   const [orders, serOrders] = useState([]);
-  const [loggedInUser] = useContext(UserContext);
   const [deleted, setDeleted] = useState(1);
+  const [updated, setUpdated] = useContext(UpdatedContext);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [allService, setAllService] = useContext(AllServiceContext);
 
   useEffect(() => {
     fetch(
@@ -18,9 +19,10 @@ function ServiceList() {
       .then((res) => res.json())
       .then((data) => {
         serOrders(data);
-        console.log(data);
+        setAllService(data);
+        // console.log(data);
       });
-  }, [deleted]);
+  }, [deleted, updated]);
 
   const removeService = (id) => {
     fetch(`http://localhost:5000/deleteOrder/${id}`, {
@@ -28,12 +30,10 @@ function ServiceList() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setDeleted(deleted + 1);
+        if (data) {
+          setDeleted(deleted + 1);
+        }
       });
-  };
-
-  const updateService = (id) => {
-    fetch();
   };
 
   return (

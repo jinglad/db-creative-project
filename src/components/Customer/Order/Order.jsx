@@ -26,6 +26,7 @@ function Order() {
     formData.append("price", price);
     formData.append("name", sessionStorage.getItem("name"));
     formData.append("email", sessionStorage.getItem("email"));
+    formData.append("orderStatus", "pending");
 
     fetch("http://localhost:5000/addOrder", {
       method: "POST",
@@ -35,7 +36,7 @@ function Order() {
       .then((success) => {
         if (success) {
           alert("Your Order Submitted Successfully...");
-          history.push("/");
+          history.push("/servicelist");
         }
       });
   };

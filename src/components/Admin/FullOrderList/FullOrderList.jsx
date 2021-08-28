@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../../Customer/Sidebar/Sidebar";
+import SingleOrder from "./SingleOrder";
 
 function FullOrderList() {
   const [orders, setOrders] = useState([]);
+  const [rejected, setRejected] = useState(1);
   useEffect(() => {
     fetch(`http://localhost:5000/getOrders`)
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);
-        // console.log(data);
       });
-  }, []);
+  }, [rejected]);
 
   return (
     <div className="container-fluid">
@@ -33,14 +34,12 @@ function FullOrderList() {
               </thead>
               <tbody>
                 {orders.length > 0 &&
-                  orders.map((order) => (
-                    <tr className="border">
-                      <td>{order.name}</td>
-                      <td>{order.email}</td>
-                      <td>{order.title}</td>
-                      <td>{order.description}</td>
-                      <td className="btn btn-secondary">pending</td>
-                    </tr>
+                  orders.map((order, i) => (
+                    <SingleOrder
+                      key={i}
+                      setRejected={setRejected}
+                      order={order}
+                    />
                   ))}
               </tbody>
             </table>
