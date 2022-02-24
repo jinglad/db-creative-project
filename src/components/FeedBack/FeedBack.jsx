@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Loading from "../Reused/Loading";
 import Review from "./Review";
 
 function FeedBack() {
   const [feedbacks, setFeedbacks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/getReview")
+    fetch("https://fast-citadel-29159.herokuapp.com/feedbacks", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setFeedbacks(data);
-        console.log(data);
+        setLoading(false);
       });
   }, []);
 
@@ -20,8 +27,8 @@ function FeedBack() {
         Clients <span style={{ color: "#7AB259" }}>Feedback</span>
       </FeedBackHeading>
       <div className="row">
-        {feedbacks.length > 0 &&
-          feedbacks.map((feedback, i) => (
+        {feedbacks?.length > 0 &&
+          feedbacks?.map((feedback, i) => (
             <Review key={i} feedback={feedback} />
           ))}
       </div>

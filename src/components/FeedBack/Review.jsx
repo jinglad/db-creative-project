@@ -2,14 +2,21 @@ import styled from "styled-components";
 
 function Review(props) {
   // const { photo } = props.feedback;
-  const { name, position, review, image } = props.feedback;
+  const { name, position, review } = props.feedback.data;
+  const { photo } = props.feedback;
+
+  // const icon = `data:image/jpeg;base64,${}`;
+
+  // console.log(image);
+
+  // console.log(photo);
 
   return (
     <div className="col-md-4 mb-3">
       <ReviewContainer>
         <div className="row mb-3">
           <div className="col-sm-3">
-            <img src={image} className="img-fluid rounded-circle" alt="" />
+            <img src={photo} className="img-fluid rounded-circle" alt="" />
           </div>
           <div className="col-sm-9">
             <h4 className="font-weight-bold">{name}</h4>

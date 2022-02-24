@@ -46,6 +46,7 @@ export const HeaderLeftButton = styled.button`
   outline: none;
   border: none;
   transition: 0.3s;
+  cursor: pointer;
   :hover {
     opacity: 0.8;
   }

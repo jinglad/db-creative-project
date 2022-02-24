@@ -13,25 +13,29 @@ function CustomerFeedback() {
 
   // console.log(loggedInUser);
 
-
   const feedbackSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:5000/addReview", {
+    fetch("https://fast-citadel-29159.herokuapp.com/addFeedback", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body:JSON.stringify({email,name,position, review, image: loggedInUser.photo})
+      body: JSON.stringify({
+        email,
+        name,
+        position,
+        review,
+        image: loggedInUser.photo,
+      }),
     })
-    .then(res => res.json())
-    .then(success => {
-      if(success) {
-        alert("Thank you for your valuable feedback....");
-        history.push("/");
-      }
-    })
-  }
-
+      .then((res) => res.json())
+      .then((success) => {
+        if (success) {
+          alert("Thank you for your valuable feedback....");
+          history.push("/");
+        }
+      });
+  };
 
   return (
     <div className="container-fluid">
@@ -51,7 +55,7 @@ function CustomerFeedback() {
                   // ref={register({ required: true })}
                   placeholder="Your email address"
                   className="form-control form-control-lg"
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -62,7 +66,7 @@ function CustomerFeedback() {
                   // ref={register({ required: true })}
                   placeholder="Your name / comapny's name"
                   className="form-control form-control-lg"
-                  onChange={e => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -72,7 +76,7 @@ function CustomerFeedback() {
                   // ref={register({ required: true })}
                   placeholder="Your Position"
                   className="form-control form-control-lg"
-                  onChange={e => setPosition(e.target.value)}
+                  onChange={(e) => setPosition(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -83,11 +87,16 @@ function CustomerFeedback() {
                   rows="5"
                   className="form-control form-control-lg"
                   placeholder="Your Review"
-                  onChange={e => setReview(e.target.value)}
+                  onChange={(e) => setReview(e.target.value)}
                 ></textarea>
               </div>
               <div>
-                <input onClick={feedbackSubmit} type="submit" className="btn btn-dark" value="Submit" />
+                <input
+                  onClick={feedbackSubmit}
+                  type="submit"
+                  className="btn btn-dark"
+                  value="Submit"
+                />
               </div>
             </form>
           </div>

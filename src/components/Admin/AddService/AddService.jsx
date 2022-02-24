@@ -22,15 +22,15 @@ function AddService() {
     formData.append("title", title);
     formData.append("description", description);
 
-    fetch("http://localhost:5000/addService", {
+    fetch("https://fast-citadel-29159.herokuapp.com/addService", {
       method: "POST",
       body: formData,
     })
       .then((response) => response.json())
       .then((success) => {
-        if(success) {
+        if (success) {
           alert("service added");
-          history.push('/');
+          history.push("/");
         }
       });
   };

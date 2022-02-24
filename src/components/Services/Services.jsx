@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Loading from "../Reused/Loading";
 import Service from "./Service";
 
 function Services() {
@@ -10,13 +11,22 @@ function Services() {
   const [viewMoreClicked, setViewMoreClicked] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5000/getServices")
-    .then(res => res.json())
-    .then(data => {
-      setServices(data);
-      setFirstThree(data.slice(0,3));
-    });
+    fetch("https://fast-citadel-29159.herokuapp.com/services")
+      .then((res) => res.json())
+      .then((data) => {
+        setServices(data);
+        setFirstThree(data.slice(0, 3));
+        setLoading(false);
+        // console.log(data);
+      });
   }, []);
+
+  // if (loading)
+  //   return (
+  //     <div style={{ height: "200px" }}>
+  //       <Loading />
+  //     </div>
+  //   );
 
   return (
     <ServicesContainer>

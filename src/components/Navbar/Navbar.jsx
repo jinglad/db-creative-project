@@ -20,7 +20,7 @@ function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
         <Link className="navbar-brand" to="/">
-          <img src={Logo} className="img-fluid w-50" alt="Creative Agency" />
+          <img src={Logo} className="w-50" alt="Creative Agency" />
         </Link>
         <button
           className="navbar-toggler"

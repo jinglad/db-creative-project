@@ -7,8 +7,8 @@ function Service(props) {
   const { title, description } = props.service;
   const [service, setService] = useContext(ServiceContext);
 
-  // const icon = `data:image/jpeg;base64,${props.service.image.img}`;
-  const icon = `http://localhost:5000/${props.service.image}`
+  const icon = `data:image/jpeg;base64,${props.service.image.img}`;
+  // const icon = `https://fast-citadel-29159.herokuapp.com/${props.service.image}`
 
   return (
     <SingleServiceContainer className="col-lg-4 col-md-6">

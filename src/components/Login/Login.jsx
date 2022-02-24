@@ -30,13 +30,27 @@ function Login() {
     success: "",
   });
 
+  // console.log(loggedInAdmin);
+
+  console.log(loggedInUser);
+
   const googleSignIn = () => {
     handleGoogleSignIn().then((res) => {
       setUser(res);
       setLoggedInUser(res);
       sessionStorage.setItem("email", res.email);
       sessionStorage.setItem("name", res.name);
-      history.replace(from);
+      fetch("https://fast-citadel-29159.herokuapp.com/isAdmin", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email: res.email }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setLoggedInAdmin(data);
+          // console.log(data);
+          history.replace(from);
+        });
     });
   };
 
@@ -45,7 +59,7 @@ function Login() {
   return (
     <div className="container">
       <div className="text-center mt-5">
-        <Link to="/" href="#">
+        <Link to="/">
           <img src={logo} className="img-fluid w-25" alt="" />
         </Link>
       </div>

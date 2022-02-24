@@ -16,16 +16,11 @@ function Sidebar() {
   const [loggedInAdmin, setLoggedInAdmin] = useContext(AdminContext);
   const [loggedInUser] = useContext(UserContext);
 
-  const isAdmin = loggedInAdmin.find(
-    (admin) => admin.email === sessionStorage.getItem("email")
-  );
-  // console.log("isAdmin ", isAdmin);
-
   return (
     <SidebarConatiner>
       <div className="mb-5 ml-5">
         <Link to="/">
-          <img className="img-fluid w-50" src={LogoImage} alt="" />
+          <img className="w-50" src={LogoImage} alt="" />
         </Link>
       </div>
       <div
@@ -43,7 +38,7 @@ function Sidebar() {
               <FontAwesomeIcon icon={faList} /> Service-list
             </SidebarLink>
           </SidebarList>
-          {isAdmin && (
+          {loggedInAdmin && (
             <div>
               <SidebarList>
                 <SidebarLink to="/full-order-list">

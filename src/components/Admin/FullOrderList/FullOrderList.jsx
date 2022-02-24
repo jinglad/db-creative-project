@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../../Customer/Sidebar/Sidebar";
+import Loading from "../../Reused/Loading";
 import SingleOrder from "./SingleOrder";
 
 function FullOrderList() {
   const [orders, setOrders] = useState([]);
-  const [rejected, setRejected] = useState(1);
+  // const [rejected, setRejected] = useState(1);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch(`http://localhost:5000/getOrders`)
+    fetch(`https://fast-citadel-29159.herokuapp.com/fullOrderList`)
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);
+        setLoading(false);
       });
-  }, [rejected]);
+  }, []);
+
+  if (loading) return <Loading />;
 
   return (
     <div className="container-fluid">
@@ -33,11 +38,11 @@ function FullOrderList() {
                 </tr>
               </thead>
               <tbody>
-                {orders.length > 0 &&
+                {orders?.length > 0 &&
                   orders.map((order, i) => (
                     <SingleOrder
                       key={i}
-                      setRejected={setRejected}
+                      // setRejected={setRejected}
                       order={order}
                     />
                   ))}

@@ -1,3 +1,7 @@
 .font-weight-500 {
   font-weight: 500;
 }
+
+.ml_4 {
+  margin-left: 4rem !important;
+}

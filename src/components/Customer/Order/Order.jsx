@@ -10,15 +10,19 @@ function Order() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const history = useHistory();
+  const [submitting, setSubmitting] = useState(null);
+
+  // console.log(loggedInUser);
 
   const handleFileUpload = (e) => {
     const newFile = e.target.files[0];
-    console.log(newFile);
+    // console.log(newFile);
     setFile(newFile);
   };
 
   const orderSubmit = (e) => {
     e.preventDefault();
+    setSubmitting(true);
     const formData = new FormData();
     formData.append("file", file);
     formData.append("title", service.title);
@@ -28,7 +32,7 @@ function Order() {
     formData.append("email", sessionStorage.getItem("email"));
     formData.append("orderStatus", "pending");
 
-    fetch("http://localhost:5000/addOrder", {
+    fetch("https://fast-citadel-29159.herokuapp.com/postOrder", {
       method: "POST",
       body: formData,
     })
@@ -36,6 +40,7 @@ function Order() {
       .then((success) => {
         if (success) {
           alert("Your Order Submitted Successfully...");
+          setSubmitting(false);
           history.push("/servicelist");
         }
       });
@@ -55,8 +60,8 @@ function Order() {
                 <input
                   type="text"
                   name="name"
-                  value={sessionStorage.getItem("name")}
-                  placeholder="Your name / comapny's name"
+                  value={loggedInUser?.name}
+                  placeholder="Your name / company's name"
                   className="form-control form-control-lg font-weight-500"
                 />
               </div>
@@ -64,7 +69,7 @@ function Order() {
                 <input
                   type="email"
                   name="email"
-                  value={sessionStorage.getItem("email")}
+                  value={loggedInUser?.email}
                   placeholder="Your email address"
                   className="form-control form-control-lg font-weight-500"
                 />
@@ -110,12 +115,16 @@ function Order() {
                 </div>
               </div>
               <div>
-                <input
-                  onClick={orderSubmit}
-                  type="submit"
-                  className="btn btn-dark"
-                  value="Submit"
-                />
+                {!submitting ? (
+                  <input
+                    onClick={orderSubmit}
+                    type="submit"
+                    className="btn btn-dark"
+                    value="Submit"
+                  />
+                ) : (
+                  <button className="btn btn-secondary">Submitting...</button>
+                )}
               </div>
             </form>
           </div>

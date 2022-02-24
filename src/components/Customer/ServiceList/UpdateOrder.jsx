@@ -17,7 +17,7 @@ const UpdateOrder = () => {
   // console.log(service);
   const updatefileUpload = (e) => {
     const newFile = e.target.files[0];
-    console.log(newFile);
+    // console.log(newFile);
     setFile(newFile);
   };
 
@@ -28,7 +28,7 @@ const UpdateOrder = () => {
     formData.append("id", id);
     formData.append("description", updateDescription);
     formData.append("price", updatePrice);
-    fetch("http://localhost:5000/updateOrder", {
+    fetch("https://fast-citadel-29159.herokuapp.com/updateOrder", {
       method: "PUT",
       body: formData,
     })
@@ -37,7 +37,7 @@ const UpdateOrder = () => {
         if (success) {
           alert("Updated Successfully...");
           if (success) {
-            setUpdated(1 + 1);
+            setUpdated((prevState) => prevState + 1);
           }
           history.push("/servicelist");
         }

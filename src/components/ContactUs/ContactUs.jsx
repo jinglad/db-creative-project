@@ -46,7 +46,7 @@ function ContactUs() {
         </div>
       </div>
       <div>
-        <FooterText>copyright Orange labs 2020</FooterText>
+        <FooterText>Copyright Orange labs 2020</FooterText>
       </div>
     </ContactUsContainer>
   );

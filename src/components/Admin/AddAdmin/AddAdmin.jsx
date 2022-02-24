@@ -8,21 +8,21 @@ function AddAdmin() {
 
   const addAdmin = (e) => {
     e.preventDefault();
-    fetch("http://localhost:5000/addAdmin", {
-      method:"POST",
-      headers:{
-        "content-type":"application/json"
+    fetch("https://fast-citadel-29159.herokuapp.com/addAdmin", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
       },
-      body:JSON.stringify({admin})
+      body: JSON.stringify({ admin }),
     })
-    .then(res => res.json())
-    .then(success => {
-      if(success) {
-        alert("Admin added successfully");
-        history.push("/");
-      }
-    })
-  }
+      .then((res) => res.json())
+      .then((success) => {
+        if (success) {
+          alert("Admin added successfully");
+          history.push("/");
+        }
+      });
+  };
 
   return (
     <div className="container-fluid">
@@ -40,11 +40,16 @@ function AddAdmin() {
                   name="email"
                   placeholder="john@gmail.com"
                   className="form-control form-control-lg"
-                  onChange={e => setAdmin(e.target.value)}
+                  onChange={(e) => setAdmin(e.target.value)}
                 />
               </div>
               <div className="form-group">
-                <input onClick={addAdmin} type="submit" className="btn btn-dark" value="Submit" />
+                <input
+                  onClick={addAdmin}
+                  type="submit"
+                  className="btn btn-dark"
+                  value="Submit"
+                />
               </div>
             </form>
           </div>

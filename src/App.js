@@ -25,14 +25,27 @@ function App() {
   const [allService, setAllService] = useState([]);
   const [updated, setUpdated] = useState(1);
 
-  useEffect(() => {
-    fetch("http://localhost:5000/admins")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setLoggedInAdmin(data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://fast-citadel-29159.herokuapp.com/admins")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setLoggedInAdmin(data);
+  //     });
+  // }, []);
+
+  // useEffect(() => {
+  //   fetch("https://fast-citadel-29159.herokuapp.com/isAdmin", {
+  //     method: "POST",
+  //     headers: { "content-type": "application/json" },
+  //     body: JSON.stringify({ email: loggedInUser.email }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setLoggedInAdmin(data);
+  //       console.log(data);
+  //     });
+  // }, [loggedInUser.email]);
 
   return (
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
